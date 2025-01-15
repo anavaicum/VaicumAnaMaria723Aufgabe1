@@ -27,6 +27,26 @@ public class main {
                 System.out.println(spielort);
             }
 
+            // d) Calcularea numarului de meciuri pentru fiecare oras si salvarea in fisier
+            Map<String, Integer> orteCounts = new TreeMap<>();
+            for (Map<String, String> meci : spielorteList) {
+                String orte = meci.get("Spielort");
+                orteCounts.put(orte, orteCounts.getOrDefault(orte, 0) + 1);
+            }
+
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("spielanzahl.txt"));
+            writer.write("Spiel\tAnzahl\n");
+            for (Map.Entry<String, Integer> entry : orteCounts.entrySet()) {
+                writer.write(entry.getKey() + "%" + entry.getValue());
+                writer.newLine();
+            }
+            writer.close();
+
+            System.out.println("Fisierul ergebnis.txt a fost creat cu succes.");
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
